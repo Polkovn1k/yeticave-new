@@ -151,3 +151,18 @@ function price_format(float $number): string {
     $value = number_format($integer, 0, '', ' ');
     return "$value ₽";
 }
+
+/**
+ * @param string $date Принимаем строку даты в виде YYY-mm-dd
+ * @return array Возвращаем массив из 2-х чисел: 1-е это оставшиеся часы, 2-е оставшиеся минуты
+ */
+function get_time_left(string $date): array {
+    $current_date = new DateTime('now');
+    $value_date = new DateTime($date);
+    $diff = date_diff($current_date, $value_date);
+    if ($diff->invert) {
+        return ['00', '00'];
+    }
+    $total_hours = $diff->days * 24 + $diff->h;
+    return [str_pad($total_hours, 2, '0', STR_PAD_LEFT), str_pad($diff->i, 2, '0', STR_PAD_LEFT)];
+}
