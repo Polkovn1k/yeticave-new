@@ -34,7 +34,7 @@ VALUES (10, 3, 1),
        (167, 6, 6);
 
 /*Получение всех категорий*/
-SELECT name AS categories FROM categories;
+SELECT * FROM categories;
 
 /*Получение самых новых открытых лотов - название, стартовую цену, ссылку на изображение, название категории*/
 SELECT lots.name AS lot_name, start_price, img AS lot_img, categories.name AS category
