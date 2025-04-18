@@ -146,10 +146,10 @@ function include_template($name, array $data = []) {
  * @param float $number Принимаем цену лота, в т.ч. не целое число
  * @return string Выводим строку - цена + символ ₽
  */
-function price_format(float $number): string {
+function price_format(float $number, bool $need_currency = false): string {
     $integer = ceil($number);
     $value = number_format($integer, 0, '', ' ');
-    return "$value ₽";
+    return $value. ($need_currency ? ' ₽' : '');
 }
 
 /**
