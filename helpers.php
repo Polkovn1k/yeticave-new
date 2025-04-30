@@ -166,3 +166,54 @@ function get_time_left(string $date): array {
     $total_hours = $diff->days * 24 + $diff->h;
     return [str_pad($total_hours, 2, '0', STR_PAD_LEFT), str_pad($diff->i, 2, '0', STR_PAD_LEFT)];
 }
+
+function is_field_empty(string $data): bool {
+    if (mb_strlen($data) === 0) {
+        return true;
+    }
+    return false;
+}
+
+function is_incorrect_date_format(string $dateInput): bool {
+    $format = 'Y-m-d';
+    $date = DateTime::createFromFormat($format, $dateInput);
+    if ($date && $date->format($format) === $dateInput) {
+        $minDate = new DateTime();
+        $minDate->modify('+1 day');
+
+        if ($date >= $minDate) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return true;
+    }
+}
+
+function img_load_errors(array $file): array {
+    $errors = [];
+    if (!is_uploaded_file($file['tmp_name']) || $file['error'] !== 0) {
+        $errors[] = "Картинка не загружена";
+        return $errors;
+    }
+    if (!is_right_img_mime($file)) {
+        $errors[] = "Недопустимый тип файла. Загружать можно *.jpeg/jpg/png";
+    }
+    define('MAX_IMG_SIZE', 3145728);
+    if ($file['size'] > MAX_IMG_SIZE) {
+        $errors[] = "Недопустимый размер файла. Ограничение - 3mb";
+    }
+    return $errors;
+}
+
+function is_right_img_mime(array $file): bool {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $loaded_img_mime_type = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+    define('MIME_TYPES', ['image/png', 'image/jpeg']);
+    $result = array_filter(MIME_TYPES, function($mime) use($loaded_img_mime_type) {
+        return $mime === $loaded_img_mime_type;
+    });
+    return (count($result) > 0);
+}

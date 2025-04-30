@@ -5,6 +5,7 @@
     <title><?=$title ?: 'Магазин YetiCave'?></title>
     <link href="../css/normalize.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/flatpickr.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
@@ -19,7 +20,7 @@
                 <input type="search" name="search" placeholder="Поиск лота">
                 <input class="main-header__search-btn" type="submit" name="find" value="Найти">
             </form>
-            <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
+            <a class="main-header__add-lot button" href="/add.php">Добавить лот</a>
 
             <nav class="user-menu">
                 <?php if ($is_auth === 1): ?>
@@ -56,7 +57,7 @@
         <ul class="nav__list container">
             <?php foreach ($categories as $category): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=$category['name'];?></a>
+                    <a href="/<?=$category['code'];?>.php"><?=$category['name'];?></a>
                 </li>
             <?php endforeach; ?>
         </ul>

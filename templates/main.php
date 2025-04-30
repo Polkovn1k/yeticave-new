@@ -17,7 +17,7 @@
         <?php foreach ($lots as $lot): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <img src="/img/<?=htmlspecialchars($lot['img']);?>" width="350" height="260" alt="">
+                    <img src="/uploads/<?=htmlspecialchars($lot['img']);?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
                     <span class="lot__category"><?=htmlspecialchars($lot['category']);?></span>

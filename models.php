@@ -14,3 +14,11 @@
     function get_category() {
         return 'SELECT * FROM categories;';
     }
+
+    function get_last_added_lot() {
+        return "SELECT * FROM lots ORDER BY id DESC LIMIT 1";
+    }
+
+    function add_new_lot() {
+        return "INSERT INTO lots (name, description, img, start_price, finish_time, bet_step, user_id, winner_id, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }

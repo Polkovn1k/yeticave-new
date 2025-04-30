@@ -12,7 +12,7 @@
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
-                <img src="../img/<?=$lot['img'];?>" width="730" height="548" alt="Сноуборд">
+                <img src="../uploads/<?=$lot['img'];?>" width="730" height="548" alt>
             </div>
             <p class="lot-item__category">Категория: <span><?=$lot['category'];?></span></p>
             <p class="lot-item__description"><?=$lot['description'];?></p>
@@ -36,7 +36,7 @@
                     <!--TODO надо поставить form__item--invalid, если не заполнили какое-то поле-->
                     <p class="lot-item__form-item form__item">
                         <label for="cost">Ваша ставка</label>
-                        <input id="cost" type="text" name="cost" placeholder="12 000">
+                        <input id="cost" type="text" name="cost" placeholder="<?=$lot['bet_step'];?>">
                         <span class="form__error">Введите наименование лота</span>
                     </p>
                     <button type="submit" class="button">Сделать ставку</button>
