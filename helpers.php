@@ -217,3 +217,15 @@ function is_right_img_mime(array $file): bool {
     });
     return (count($result) > 0);
 }
+
+function is_existing_email($mysqli): bool {
+    $email = $_POST['email'];
+    $stmt = mysqli_prepare($mysqli, get_email());
+    mysqli_stmt_bind_param($stmt, 's', $email);
+    if (mysqli_stmt_execute($stmt)) {
+        $data = mysqli_stmt_get_result($stmt);
+        $result = mysqli_fetch_assoc($data);
+        return $result && count($result) > 0;
+    }
+    return false;
+}

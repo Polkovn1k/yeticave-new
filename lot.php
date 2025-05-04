@@ -1,8 +1,8 @@
 <?php
-    require_once('data.php');
+    require_once('session.php');
+    require_once('models.php');
     require_once('helpers.php');
     require_once('db_init.php');
-    require_once('models.php');
 
     $query = get_category();
     $result = mysqli_query($mysqli, $query);
@@ -18,7 +18,6 @@
         'mainContent' => $mainContent,
         'categories' => $categories,
         'user_name' => $user_name,
-        'is_auth' => $is_auth,
         'title' => 'Страница не найдена',
     ]);
 
@@ -45,7 +44,6 @@
         'mainContent' => $mainContent,
         'categories' => $categories,
         'user_name' => $user_name,
-        'is_auth' => $is_auth,
         'title' => $lot['lot_name'],
     ]);
     print($layout);

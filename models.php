@@ -22,3 +22,11 @@
     function add_new_lot() {
         return "INSERT INTO lots (name, description, img, start_price, finish_time, bet_step, user_id, winner_id, category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
+
+    function get_email() {
+        return "SELECT email FROM users WHERE users.email = ? LIMIT 1";
+    }
+
+    function set_new_user() {
+        return "INSERT INTO users (email, name, password, contacts) VALUES (?, ?, ?, ?)";
+    }

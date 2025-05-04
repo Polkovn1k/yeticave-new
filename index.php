@@ -1,8 +1,8 @@
 <?php
-    require_once('data.php');
+    require_once('session.php');
+    require_once('models.php');
     require_once('helpers.php');
     require_once('db_init.php');
-    require_once('models.php');
 
     $query = get_lots();
     $result = mysqli_query($mysqli, $query);
@@ -26,7 +26,6 @@
         'mainContent' => $mainContent,
         'categories' => $categories,
         'user_name' => $user_name,
-        'is_auth' => $is_auth,
         'title' => 'Главная страница',
         'container_class' => 'container',
         'is_main_page' => true
