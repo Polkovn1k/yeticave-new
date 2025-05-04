@@ -58,7 +58,8 @@
 
         if (count($errors) === 0) {
             $stmt = mysqli_prepare($mysqli, set_new_user());
-            mysqli_stmt_bind_param($stmt, 'ssss', $prepared_reg_data['email'], $prepared_reg_data['name'], $prepared_reg_data['password'], $prepared_reg_data['contacts']);
+            $pass_hash = password_hash($prepared_reg_data['password'], PASSWORD_DEFAULT);
+            mysqli_stmt_bind_param($stmt, 'ssss', $prepared_reg_data['email'], $prepared_reg_data['name'], $pass_hash, $prepared_reg_data['contacts']);
             if (mysqli_stmt_execute($stmt)) {
                 if (mysqli_stmt_affected_rows($stmt) > 0) {
                     header("Location: /login.php");
