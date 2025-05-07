@@ -19,13 +19,11 @@
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     $errors = [];
-    $prepared_reg_data = [];
+    $prepared_log_data = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $required_fields = [
             'email' => 'Email',
             'password' => 'Пароль',
-            'name' => 'Имя',
-            'contacts' => 'Контакты',
         ];
 
         foreach ($required_fields as $key => $value) {
@@ -40,49 +38,39 @@
                 if (!(filter_var($_POST[$key], FILTER_VALIDATE_EMAIL))) {
                     $errors[$key][] = "Поле '$value' должно быть корректным email";
                 }
-                $existiting_user = is_existing_email($mysqli);
-                if ($existiting_user) {
-                    $errors[$key][] = "Пользователь с указанным '$value' уже существует";
-                }
-            }
-            if (($key === 'password') && !(preg_match('/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{12}$/', $_POST[$key]))) {
-                $errors[$key][] = "Поле '$value' должно содержать 12 латинских символов/цифр";
             }
         }
 
         foreach ($_POST as $key => $value) {
             if (empty($errors[$key])) {
-                $prepared_reg_data[$key] = $value;
+                $prepared_log_data[$key] = $value;
             }
         }
 
         if (count($errors) === 0) {
-            $stmt = mysqli_prepare($mysqli, set_new_user());
-            $pass_hash = password_hash($prepared_reg_data['password'], PASSWORD_DEFAULT);
-            mysqli_stmt_bind_param($stmt, 'ssss', $prepared_reg_data['email'], $prepared_reg_data['name'], $pass_hash, $prepared_reg_data['contacts']);
-            if (mysqli_stmt_execute($stmt)) {
-                if (mysqli_stmt_affected_rows($stmt) > 0) {
-                    header('Location: /login.php');
+            $user = get_user_by_mail($mysqli);
+            if (!empty($user)) {
+                $is_email_existing = $_POST['email'] === $user['email'];
+                $is_right_password = password_verify($_POST['password'], $user['password']);
+                if ($is_email_existing && $is_right_password) {
+                    $_SESSION['name'] = $user['name'];
+                    header('Location: /');
                     die();
-                } else {
-                    die('Ошибка добавления нового пользователя!');
                 }
-            } else {
-                die('Ошибка добавления нового пользователя: ' . mysqli_stmt_error($stmt));
             }
+            $errors['email'][] = "Не найден пользователь с таким email или введен неверный пароль";
         }
     }
 
-    $mainContent = include_template('templates/sign-up.php', [
+    $mainContent = include_template('templates/login.php', [
         'categories' => $categories,
         'errors' => $errors,
-        'reg_data' => $prepared_reg_data,
     ]);
     $layout = include_template('templates/layouts/master.php', [
         'mainContent' => $mainContent,
         'categories' => $categories,
         'user_name' => $user_name,
-        'title' => 'Регистрация аккаунта'
+        'title' => 'Вход на сайт'
     ]);
     print($layout);
 

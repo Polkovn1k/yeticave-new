@@ -24,7 +24,7 @@
     }
 
     function get_email() {
-        return "SELECT email FROM users WHERE users.email = ? LIMIT 1";
+        return "SELECT email, password, name FROM users WHERE users.email = ? LIMIT 1";
     }
 
     function set_new_user() {

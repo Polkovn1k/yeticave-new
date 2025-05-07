@@ -229,3 +229,14 @@ function is_existing_email($mysqli): bool {
     }
     return false;
 }
+
+function get_user_by_mail($mysqli): array {
+    $email = $_POST['email'];
+    $stmt = mysqli_prepare($mysqli, get_email());
+    mysqli_stmt_bind_param($stmt, 's', $email);
+    if (mysqli_stmt_execute($stmt)) {
+        $data = mysqli_stmt_get_result($stmt);
+        return (mysqli_num_rows($data) > 0) ? mysqli_fetch_assoc($data) : [];
+    }
+    return [];
+}
