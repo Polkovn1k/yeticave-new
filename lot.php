@@ -39,6 +39,7 @@
     $mainContent = include_template('templates/lot-detail.php', [
         'categories' => $categories,
         'lot' => $lot,
+        'user_name' => $user_name,
     ]);
     $layout = include_template('templates/layouts/master.php', [
         'mainContent' => $mainContent,

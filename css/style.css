@@ -1237,3 +1237,9 @@ input:invalid .form__error{
 .rates__item--end {
   opacity: 0.4;
 }
+
+/*CUSTOM STYLE*/
+.link {
+    font-weight: 700;
+    color: #45abde;
+}

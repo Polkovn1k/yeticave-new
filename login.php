@@ -54,6 +54,7 @@
                 $is_right_password = password_verify($_POST['password'], $user['password']);
                 if ($is_email_existing && $is_right_password) {
                     $_SESSION['name'] = $user['name'];
+                    $_SESSION['id'] = $user['id'];
                     header('Location: /');
                     die();
                 }

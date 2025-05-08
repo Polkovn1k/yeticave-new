@@ -18,6 +18,22 @@
     }
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+    if ($user_name) {
+        $mainContent = include_template('templates/403.php', [
+            'categories' => $categories,
+            'add_text_content' => "<h2>У вас уже зарегистрирован аккаунт: $user_name</h2>",
+        ]);
+        $layout = include_template('templates/layouts/master.php', [
+            'mainContent' => $mainContent,
+            'categories' => $categories,
+            'user_name' => $user_name,
+            'title' => 'В доступе отказано',
+        ]);
+        http_response_code(403);
+        print($layout);
+        die();
+    }
+
     $errors = [];
     $prepared_reg_data = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

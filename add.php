@@ -11,6 +11,20 @@
     }
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+    if (!$user_name) {
+        $mainContent = include_template('templates/403.php', [
+            'categories' => $categories,
+        ]);
+        $layout = include_template('templates/layouts/master.php', [
+            'mainContent' => $mainContent,
+            'categories' => $categories,
+            'title' => 'В доступе отказано',
+        ]);
+        http_response_code(403);
+        print($layout);
+        die();
+    }
+
     $errors = [];
     $prepared_lot = [];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,7 +70,7 @@
             $new_img_path = __DIR__.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$new_img_name;
             $is_img_moved = move_uploaded_file($_FILES['lot_img']['tmp_name'], $new_img_path);
             if ($is_img_moved) {
-                $user_id = rand(1, 4);
+                $user_id = $user_id;
                 $winner_id = null;
                 $stmt = mysqli_prepare($mysqli, add_new_lot());
                 mysqli_stmt_bind_param($stmt, 'sssisiisi', $prepared_lot['lot_name'], $prepared_lot['lot_description'], $new_img_name, $prepared_lot['lot_rate'], $prepared_lot['lot_date'], $prepared_lot['lot_step'], $user_id, $winner_id, $prepared_lot['category']);

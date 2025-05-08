@@ -18,7 +18,8 @@
             <p class="lot-item__description"><?=$lot['description'];?></p>
         </div>
         <div class="lot-item__right">
-            <div class="lot-item__state">
+            <?php if ($user_name): ?>
+                <div class="lot-item__state">
                 <?php $timeleft_arr = get_time_left(htmlspecialchars($lot['end_date']));?>
                 <div class="lot-item__timer timer <?=$timeleft_arr[0] == 0 ? 'timer--finishing' : '';?>">
                     <?=$timeleft_arr[0];?>:<?=$timeleft_arr[1];?>
@@ -42,6 +43,7 @@
                     <button type="submit" class="button">Сделать ставку</button>
                 </form>
             </div>
+            <?php endif ?>
             <div class="history">
                 <h3>История ставок (<span>10</span>)</h3>
                 <table class="history__list">
