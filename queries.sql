@@ -58,3 +58,6 @@ FROM bets
     INNER JOIN users ON bets.user_id = users.id
 WHERE lots.id = 6
 ORDER BY date DESC;
+
+/*Создание Fulltext индекса для поиска по name/description в таблице lots*/
+CREATE FULLTEXT INDEX index_name_description ON lots(name, description);

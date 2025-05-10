@@ -250,3 +250,8 @@ function remove_session_cookie() {
         );
     }
 }
+
+function prepare_search_query($field_name) {
+    $query = filter_input(INPUT_GET, $field_name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    return trim($query) ?? '';
+}

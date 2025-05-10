@@ -30,3 +30,7 @@
     function set_new_user() {
         return "INSERT INTO users (email, name, password, contacts) VALUES (?, ?, ?, ?)";
     }
+
+    function get_lots_by_search($search_query) {
+        return "SELECT * FROM lots WHERE MATCH(name, description) AGAINST('$search_query');";
+    }
