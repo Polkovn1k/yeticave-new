@@ -30,8 +30,6 @@
     if (($end_page - $start_page + 1) < PAGINATION_VISIBLE_LINKS) {
         $start_page = max(1, $end_page - PAGINATION_VISIBLE_LINKS + 1);
     }
-    var_dump($start_page);
-    var_dump($end_page);
 
     $query = get_lots_by_search($prepare_search_query, LOT_LIMIT, $offset);
     $result = mysqli_query($mysqli, $query);

@@ -36,8 +36,9 @@
     }
 
     function get_lots_by_search($search_query, $limit, $offset) {
-        return "SELECT * FROM lots 
-                WHERE MATCH(name, description) 
+        return "SELECT lots.id, lots.created_at, lots.name, lots.description, lots.img, lots.start_price, lots.finish_time, lots.bet_step, categories.name AS category_name FROM lots 
+                INNER JOIN categories ON lots.category_id = categories.id
+                WHERE MATCH(lots.name, description) 
                 AGAINST('$search_query') 
-                ORDER BY name LIMIT $limit OFFSET $offset;";
+                ORDER BY created_at DESC LIMIT $limit OFFSET $offset;";
     }
