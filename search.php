@@ -25,13 +25,11 @@
     }
     $total_lots_row_count = $result->fetch_assoc();
     $total_pages = ceil((int)$total_lots_row_count['total_count'] / LOT_LIMIT);
-    $total_pages_array = range(1, $total_pages);
     $start_page = max(1, $page_number);
     $end_page = min($total_pages, $start_page + PAGINATION_VISIBLE_LINKS - 1);
     if (($end_page - $start_page + 1) < PAGINATION_VISIBLE_LINKS) {
         $start_page = max(1, $end_page - PAGINATION_VISIBLE_LINKS + 1);
     }
-    var_dump($total_pages_array);
     var_dump($start_page);
     var_dump($end_page);
 
@@ -39,13 +37,11 @@
     $result = mysqli_query($mysqli, $query);
     if ($result) {
         $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        var_dump($lots);
     }
     $mainContent = include_template('templates/search.php', [
         'categories' => $categories,
         'search_query' => $prepare_search_query,
         'lots' => $lots,
-        'total_pages_array' => $total_pages_array,
         'total_pages' => $total_pages,
         'page_number' => $page_number,
         'start_page' => $start_page,
