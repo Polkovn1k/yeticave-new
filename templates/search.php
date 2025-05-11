@@ -43,32 +43,34 @@
                 <?php endforeach; ?>
             </ul>
         </section>
-        <ul class="pagination-list">
-            <li class="pagination-item pagination-item-prev">
-                <?php if ($page_number > 1): ?>
-                    <a href="?search=<?=$search_query;?>&page=<?=$page_number - 1;?>">Назад</a>
-                <?php else: ?>
-                    <a>Назад</a>
-                <?php endif; ?>
-            </li>
-            <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
-                <?php if ($i == $page_number): ?>
-                    <li class="pagination-item pagination-item-active">
-                        <a><?=$i;?></a>
-                    </li>
-                <?php else: ?>
-                    <li class="pagination-item">
-                        <a href="?search=<?=$search_query;?>&page=<?=$i;?>"><?=$i;?></a>
-                    </li>
-                <?php endif; ?>
-            <?php endfor; ?>
-            <li class="pagination-item pagination-item-next">
-                <?php if ($page_number < $total_pages): ?>
-                    <a href="?search=<?=$search_query;?>&page=<?=$page_number + 1;?>">Вперед</a>
-                <?php else: ?>
-                    <a>Вперед</a>
-                <?php endif; ?>
-            </li>
-        </ul>
+        <?php if ($total_pages > 1): ?>
+            <ul class="pagination-list">
+                <li class="pagination-item pagination-item-prev">
+                    <?php if ($page_number > 1): ?>
+                        <a href="?search=<?=$search_query;?>&page=<?=$page_number - 1;?>">Назад</a>
+                    <?php else: ?>
+                        <a>Назад</a>
+                    <?php endif; ?>
+                </li>
+                <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+                    <?php if ($i == $page_number): ?>
+                        <li class="pagination-item pagination-item-active">
+                            <a><?=$i;?></a>
+                        </li>
+                    <?php else: ?>
+                        <li class="pagination-item">
+                            <a href="?search=<?=$search_query;?>&page=<?=$i;?>"><?=$i;?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endfor; ?>
+                <li class="pagination-item pagination-item-next">
+                    <?php if ($page_number < $total_pages): ?>
+                        <a href="?search=<?=$search_query;?>&page=<?=$page_number + 1;?>">Вперед</a>
+                    <?php else: ?>
+                        <a>Вперед</a>
+                    <?php endif; ?>
+                </li>
+            </ul>
+        <?php endif; ?>
     <?php endif; ?>
 </div>
