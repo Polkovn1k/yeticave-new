@@ -715,7 +715,8 @@ main.container {
   padding: 5px 10px;
 }
 
-.pagination-item a:not([href]) {
+.pagination-item-prev a:not([href]),
+.pagination-item-next a:not([href]){
     pointer-events: none;
     opacity: 0.3;
 }

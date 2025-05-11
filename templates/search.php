@@ -51,10 +51,17 @@
                     <a>Назад</a>
                 <?php endif; ?>
             </li>
-            <li class="pagination-item pagination-item-active"><a>1</a></li>
-            <li class="pagination-item"><a href="#">2</a></li>
-            <li class="pagination-item"><a href="#">3</a></li>
-            <li class="pagination-item"><a href="#">4</a></li>
+            <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+                <?php if ($i == $page_number): ?>
+                    <li class="pagination-item pagination-item-active">
+                        <a><?=$i;?></a>
+                    </li>
+                <?php else: ?>
+                    <li class="pagination-item">
+                        <a href="?search=<?=$search_query;?>&page=<?=$i;?>"><?=$i;?></a>
+                    </li>
+                <?php endif; ?>
+            <?php endfor; ?>
             <li class="pagination-item pagination-item-next">
                 <?php if ($page_number < $total_pages): ?>
                     <a href="?search=<?=$search_query;?>&page=<?=$page_number + 1;?>">Вперед</a>
@@ -63,10 +70,5 @@
                 <?php endif; ?>
             </li>
         </ul>
-
-
-
-
-
     <?php endif; ?>
 </div>
