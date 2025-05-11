@@ -1,16 +1,12 @@
 <?=$categories_template;?>
 <div class="container">
-    <?php if (empty($category_query)): ?>
+    <?php if (count($lots) === 0): ?>
         <section class="lots">
-            <h2>Введите название/описание лота</h2>
-        </section>
-    <?php elseif(count($lots) === 0): ?>
-        <section class="lots">
-            <h2>Ничего не найдено по вашему запросу</h2>
+            <h2>Лотов по данной категории нет</h2>
         </section>
     <?php else: ?>
         <section class="lots">
-            <h2>Все лоты в категории «<span><?=$category_query;?></span>»</h2>
+            <h2>Все лоты в категории «<span><?=$current_category['name'];?></span>»</h2>
             <ul class="lots__list">
                 <?php foreach ($lots as $lot): ?>
                     <li class="lots__item lot">
@@ -39,7 +35,7 @@
             <ul class="pagination-list">
                 <li class="pagination-item pagination-item-prev">
                     <?php if ($page_number > 1): ?>
-                        <a href="?search=<?=$category_query;?>&page=<?=$page_number - 1;?>">Назад</a>
+                        <a href="?category_type=<?=$current_category['code'];?>&page=<?=$page_number - 1;?>">Назад</a>
                     <?php else: ?>
                         <a>Назад</a>
                     <?php endif; ?>
@@ -51,13 +47,13 @@
                         </li>
                     <?php else: ?>
                         <li class="pagination-item">
-                            <a href="?search=<?=$category_query;?>&page=<?=$i;?>"><?=$i;?></a>
+                            <a href="?category_type=<?=$current_category['code'];?>&page=<?=$i;?>"><?=$i;?></a>
                         </li>
                     <?php endif; ?>
                 <?php endfor; ?>
                 <li class="pagination-item pagination-item-next">
                     <?php if ($page_number < $total_pages): ?>
-                        <a href="?search=<?=$category_query;?>&page=<?=$page_number + 1;?>">Вперед</a>
+                        <a href="?category_type=<?=$current_category['code'];?>&page=<?=$page_number + 1;?>">Вперед</a>
                     <?php else: ?>
                         <a>Вперед</a>
                     <?php endif; ?>

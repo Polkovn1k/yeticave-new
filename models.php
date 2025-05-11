@@ -42,3 +42,15 @@
                 AGAINST('$search_query') 
                 ORDER BY created_at DESC LIMIT $limit OFFSET $offset;";
     }
+
+    function get_lots_count_by_category($category_id) {
+        return "SELECT COUNT(*) AS total_count FROM lots INNER JOIN categories ON lots.category_id = categories.id
+                WHERE lots.category_id = $category_id;";
+    }
+
+    function get_lots_by_category($category_id, $limit, $offset) {
+        return "SELECT lots.id, lots.created_at, lots.name, lots.description, lots.img, lots.start_price, lots.finish_time, lots.bet_step, categories.name AS category_name FROM lots
+                INNER JOIN categories ON lots.category_id = categories.id
+                WHERE lots.category_id = $category_id
+                ORDER BY created_at DESC LIMIT $limit OFFSET $offset;";
+    }

@@ -263,3 +263,8 @@ function get_page_number() {
     }
     return $page;
 }
+
+function check_is_right_category($categories, $category_param) {
+    $category_type = array_column($categories, 'code');
+    return in_array($category_param, $category_type);
+}
