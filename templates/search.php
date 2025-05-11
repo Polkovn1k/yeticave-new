@@ -44,12 +44,29 @@
             </ul>
         </section>
         <ul class="pagination-list">
-            <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
+            <li class="pagination-item pagination-item-prev">
+                <?php if ($page_number > 1): ?>
+                    <a href="?search=<?=$search_query;?>&page=<?=$page_number - 1;?>">Назад</a>
+                <?php else: ?>
+                    <a>Назад</a>
+                <?php endif; ?>
+            </li>
             <li class="pagination-item pagination-item-active"><a>1</a></li>
             <li class="pagination-item"><a href="#">2</a></li>
             <li class="pagination-item"><a href="#">3</a></li>
             <li class="pagination-item"><a href="#">4</a></li>
-            <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
+            <li class="pagination-item pagination-item-next">
+                <?php if ($page_number < $total_pages): ?>
+                    <a href="?search=<?=$search_query;?>&page=<?=$page_number + 1;?>">Вперед</a>
+                <?php else: ?>
+                    <a>Вперед</a>
+                <?php endif; ?>
+            </li>
         </ul>
+
+
+
+
+
     <?php endif; ?>
 </div>

@@ -255,3 +255,11 @@ function prepare_search_query($field_name) {
     $query = filter_input(INPUT_GET, $field_name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     return trim($query) ?? '';
 }
+
+function get_page_number() {
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    if ($page < 1) {
+        $page = 1;
+    }
+    return $page;
+}

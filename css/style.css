@@ -715,6 +715,11 @@ main.container {
   padding: 5px 10px;
 }
 
+.pagination-item a:not([href]) {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
 .pagination-item a:hover {
   color: #45abde;
 }

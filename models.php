@@ -31,6 +31,13 @@
         return "INSERT INTO users (email, name, password, contacts) VALUES (?, ?, ?, ?)";
     }
 
-    function get_lots_by_search($search_query) {
-        return "SELECT * FROM lots WHERE MATCH(name, description) AGAINST('$search_query');";
+    function get_lots_count_by_search($search_query) {
+        return "SELECT COUNT(*) AS total_count FROM lots WHERE MATCH(name, description) AGAINST('$search_query');";
+    }
+
+    function get_lots_by_search($search_query, $limit, $offset) {
+        return "SELECT * FROM lots 
+                WHERE MATCH(name, description) 
+                AGAINST('$search_query') 
+                ORDER BY name LIMIT $limit OFFSET $offset;";
     }
