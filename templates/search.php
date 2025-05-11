@@ -1,12 +1,4 @@
-<nav class="nav">
-    <ul class="nav__list container">
-        <?php foreach ($categories as $category): ?>
-            <li class="nav__item">
-                <a href="/<?=$category['code'];?>.php"><?=$category['name'];?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</nav>
+<?=$categories_template;?>
 <div class="container">
     <?php if (empty($search_query)): ?>
         <section class="lots">

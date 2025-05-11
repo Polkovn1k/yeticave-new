@@ -63,15 +63,20 @@
         }
     }
 
-    $mainContent = include_template('templates/login.php', [
+    $categories_template = include_template('templates/layout_parts/category_part.php', [
+        'categories' => $categories,
+    ]);
+    $main_content = include_template('templates/login.php', [
         'categories' => $categories,
         'errors' => $errors,
+        'categories_template' => $categories_template,
     ]);
     $layout = include_template('templates/layouts/master.php', [
-        'mainContent' => $mainContent,
+        'main_content' => $main_content,
         'categories' => $categories,
         'user_name' => $user_name,
-        'title' => 'Вход на сайт'
+        'title' => 'Вход на сайт',
+        'categories_template' => $categories_template,
     ]);
     print($layout);
 

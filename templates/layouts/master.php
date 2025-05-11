@@ -44,21 +44,13 @@
     </header>
 
     <main <?php if (!empty($container_class)) print("class='$container_class'") ?>>
-        <?=$mainContent;?>
+        <?=$main_content;?>
     </main>
 
 </div>
 
 <footer class="main-footer">
-    <nav class="nav">
-        <ul class="nav__list container">
-            <?php foreach ($categories as $category): ?>
-                <li class="nav__item">
-                    <a href="/<?=$category['code'];?>.php"><?=$category['name'];?></a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </nav>
+    <?=$categories_template;?>
     <div class="main-footer__bottom container">
         <div class="main-footer__copyright">
             <p>© 2019, YetiCave</p>

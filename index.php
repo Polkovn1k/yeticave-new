@@ -18,17 +18,21 @@
     }
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    $mainContent = include_template('templates/main.php', [
+    $categories_template = include_template('templates/layout_parts/category_part.php', [
+        'categories' => $categories,
+    ]);
+    $main_content = include_template('templates/main.php', [
         'categories' => $categories,
         'lots' => $lots
     ]);
     $layout = include_template('templates/layouts/master.php', [
-        'mainContent' => $mainContent,
+        'main_content' => $main_content,
         'categories' => $categories,
         'user_name' => $user_name,
         'title' => 'Главная страница',
         'container_class' => 'container',
-        'is_main_page' => true
+        'is_main_page' => true,
+        'categories_template' => $categories_template,
     ]);
     print($layout);
 

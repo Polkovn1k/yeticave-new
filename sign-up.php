@@ -19,15 +19,20 @@
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     if ($user_name) {
-        $mainContent = include_template('templates/403.php', [
+        $categories_template = include_template('templates/layout_parts/category_part.php', [
             'categories' => $categories,
+        ]);
+        $main_content = include_template('templates/403.php', [
+            'categories' => $categories,
+            'categories_template' => $categories_template,
             'add_text_content' => "<h2>У вас уже зарегистрирован аккаунт: $user_name</h2>",
         ]);
         $layout = include_template('templates/layouts/master.php', [
-            'mainContent' => $mainContent,
+            'main_content' => $main_content,
             'categories' => $categories,
             'user_name' => $user_name,
             'title' => 'В доступе отказано',
+            'categories_template' => $categories_template,
         ]);
         http_response_code(403);
         print($layout);
@@ -89,16 +94,21 @@
         }
     }
 
-    $mainContent = include_template('templates/sign-up.php', [
+    $categories_template = include_template('templates/layout_parts/category_part.php', [
+        'categories' => $categories,
+    ]);
+    $main_content = include_template('templates/sign-up.php', [
         'categories' => $categories,
         'errors' => $errors,
         'reg_data' => $prepared_reg_data,
+        'categories_template' => $categories_template,
     ]);
     $layout = include_template('templates/layouts/master.php', [
-        'mainContent' => $mainContent,
+        'main_content' => $main_content,
         'categories' => $categories,
         'user_name' => $user_name,
-        'title' => 'Регистрация аккаунта'
+        'title' => 'Регистрация аккаунта',
+        'categories_template' => $categories_template,
     ]);
     print($layout);
 
