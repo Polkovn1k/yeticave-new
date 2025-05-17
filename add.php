@@ -75,7 +75,6 @@
             $new_img_path = __DIR__.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$new_img_name;
             $is_img_moved = move_uploaded_file($_FILES['lot_img']['tmp_name'], $new_img_path);
             if ($is_img_moved) {
-                $user_id = $user_id;
                 $winner_id = null;
                 $stmt = mysqli_prepare($mysqli, add_new_lot());
                 mysqli_stmt_bind_param($stmt, 'sssisiisi', $prepared_lot['lot_name'], $prepared_lot['lot_description'], $new_img_name, $prepared_lot['lot_rate'], $prepared_lot['lot_date'], $prepared_lot['lot_step'], $user_id, $winner_id, $prepared_lot['category']);

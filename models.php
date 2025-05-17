@@ -1,13 +1,13 @@
 <?php
     function get_lots() {
-        return "SELECT lots.id, lots.name AS name, start_price AS price, img, finish_time AS end_date, categories.name AS category
-                FROM lots INNER JOIN categories ON lots.category_id = categories.id
+        return "SELECT lots.id, lots.name AS name, start_price AS price, img, finish_time AS end_date, categories.name AS category FROM lots 
+                INNER JOIN categories ON lots.category_id = categories.id
                 WHERE finish_time > NOW() ORDER BY finish_time DESC;";
     }
 
     function get_lot($id) {
-        return "SELECT lots.name AS lot_name, lots.created_at, lots.description, lots.img, lots.start_price, lots.finish_time AS end_date, lots.bet_step, categories.name AS category, categories.code 
-                FROM lots INNER JOIN categories ON lots.category_id = categories.id 
+        return "SELECT lots.name AS lot_name, lots.created_at, lots.description, lots.img, lots.start_price, lots.finish_time AS end_date, lots.bet_step, categories.name AS category, categories.code FROM lots 
+                INNER JOIN categories ON lots.category_id = categories.id 
                 WHERE lots.id = $id;";
     }
 
@@ -32,7 +32,8 @@
     }
 
     function get_lots_count_by_search($search_query) {
-        return "SELECT COUNT(*) AS total_count FROM lots WHERE MATCH(name, description) AGAINST('$search_query');";
+        return "SELECT COUNT(*) AS total_count FROM lots 
+                WHERE MATCH(name, description) AGAINST('$search_query');";
     }
 
     function get_lots_by_search($search_query, $limit, $offset) {
@@ -44,7 +45,8 @@
     }
 
     function get_lots_count_by_category($category_id) {
-        return "SELECT COUNT(*) AS total_count FROM lots INNER JOIN categories ON lots.category_id = categories.id
+        return "SELECT COUNT(*) AS total_count FROM lots 
+                INNER JOIN categories ON lots.category_id = categories.id
                 WHERE lots.category_id = $category_id;";
     }
 
@@ -53,4 +55,19 @@
                 INNER JOIN categories ON lots.category_id = categories.id
                 WHERE lots.category_id = $category_id
                 ORDER BY created_at DESC LIMIT $limit OFFSET $offset;";
+    }
+
+    function get_lot_bets_count($lot_id) {
+        return "SELECT COUNT(*) AS total_bets FROM bets WHERE bets.lot_id = $lot_id";
+    }
+
+    function get_lot_bets($lot_id) {
+        return "SELECT DATE_FORMAT(bets.date, '%d.%m.%Y %H:%i') AS date, bets.price, users.id, users.name FROM bets 
+                INNER JOIN users ON users.id = bets.user_id
+                WHERE $lot_id = bets.lot_id
+                ORDER BY bets.date DESC";
+    }
+
+    function add_new_bet() {
+        return "INSERT INTO bets (price, user_id, lot_id) VALUES (?, ?, ?);";
     }
