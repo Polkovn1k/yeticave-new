@@ -1,4 +1,6 @@
 <?php
-    $errors = array_filter([1,2,3,4,5]);
-    var_dump($errors);
+    $test = 10;
+    foreach ($test as $val) {
+        echo $val;
+    }
 ?>

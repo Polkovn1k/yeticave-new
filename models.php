@@ -71,3 +71,10 @@
     function add_new_bet() {
         return "INSERT INTO bets (price, user_id, lot_id) VALUES (?, ?, ?);";
     }
+
+    function get_bets_by_user($user_id) {
+        return "SELECT lots.name AS lot_name, lots.img, lots.finish_time, categories.name AS category_name, (SELECT MAX(bets.price) FROM bets WHERE lots.id = bets.lot_id) AS max_bets FROM lots 
+                INNER JOIN categories ON lots.category_id = categories.id
+                INNER JOIN bets ON lots.id = bets.lot_id
+                WHERE bets.user_id = $user_id";
+    }
