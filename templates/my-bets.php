@@ -9,7 +9,7 @@
                     <div class="rates__img">
                         <img src="../uploads/<?=$bet['img'];?>" width="54" height="40" alt="Сноуборд">
                     </div>
-                    <h3 class="rates__title"><a href="lot.html"><?=$bet['lot_name'];?></a></h3>
+                    <h3 class="rates__title"><a href="/lot.php?id=<?=$bet['lot_id'];?>"><?=$bet['lot_name'];?></a></h3>
                 </td>
                 <td class="rates__category"><?=$bet['finish_time'];?></td>
                 <td class="rates__timer">
