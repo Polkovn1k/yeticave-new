@@ -1,4 +1,5 @@
 <?php
+    require_once('vendor/autoload.php');
     require_once('session.php');
     require_once('models.php');
     require_once('helpers.php');

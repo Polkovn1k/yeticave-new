@@ -1,0 +1,16 @@
+{
+    "name": "wa0s/yeticave-new",
+    "autoload": {
+        "psr-4": {
+            "Wa0s\\YeticaveNew\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "test"
+        }
+    ],
+    "require": {
+        "brick/date-time": "^0.7.0"
+    }
+}
